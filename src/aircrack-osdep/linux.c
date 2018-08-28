@@ -934,9 +934,14 @@ linux_write(struct wif *wi, unsigned char *buf, int count, struct tx_info *ti)
 #if defined(CONFIG_LIBNL)
 static int ieee80211_channel_to_frequency(int chan)
 {
-	if (chan < 14) return 2407 + chan * 5;
-
-	if (chan == 14) return 2484;
+	if (chan >= 213 && chan <= 256)
+		return 1127 + chan * 5;
+	else if (chan >= 1 && chan <= 13)
+		return 2407 + chan * 5;
+	else if (chan == 14)
+		return 2484;
+	else if (chan >= 15 && chan <= 64)
+		return 2412 + chan * 5;
 
 	/* FIXME: dot11ChannelStartingFactor (802.11-2007 17.3.8.3.2) */
 	return (chan + 1000) * 5;
