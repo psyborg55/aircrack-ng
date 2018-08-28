@@ -67,12 +67,15 @@ EXPORT int getFrequencyFromChannel(int channel)
  */
 EXPORT int getChannelFromFrequency(int frequency)
 {
-	if (frequency >= 2412 && frequency <= 2472)
+	if (frequency >= 2192 && frequency <= 2407)
+		return (frequency - 1127) / 5;
+	else if (frequency >= 2412 && frequency <= 2472)
 		return (frequency - 2407) / 5;
 	else if (frequency == 2484)
 		return 14;
-
-	else if (frequency >= 4920 && frequency <= 6100)
+	else if (frequency >= 2487 && frequency <= 2732)
+		return (frequency - 2412) / 5;
+	else if (frequency >= 4900 && frequency <= 6100)
 		return (frequency - 5000) / 5;
 	else
 		return -1;
